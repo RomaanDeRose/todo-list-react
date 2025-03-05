@@ -1,0 +1,224 @@
+.container {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #333;
+  margin: 0.5rem 0rem 1.5rem 0rem;
+}
+
+.container .todo-button {
+  all: unset;
+  padding: 0.4rem 0.75rem;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 3px solid #333;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: #333;
+    background-color: #fff;
+    color: #333;
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.92);
+  }
+  &:hover svg {
+    color: #333;
+  }
+}
+
+.container-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(51, 51, 51, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .form {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+
+    & .form-group {
+      width: 100%;
+      margin-bottom: 1.2rem;
+      text-align: left;
+
+      & label {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+        justify-self: flex-start;
+      }
+
+      & input,
+      select {
+        width: 100%;
+        padding: 0.5rem;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 4px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+      & select {
+        font-size: 0.85rem;
+        font-weight: 400;
+        & option {
+          color: #333;
+        }
+      }
+      & select::-ms-expand {
+        background-color: red;
+      }
+
+      & textarea {
+        width: 100%;
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 4px;
+        background-color: transparent;
+        resize: none;
+        overflow-y: scroll;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    & button {
+      all: unset;
+      width: 47.2%;
+      margin: 0.8rem 0.33rem;
+      padding: 0.7rem 0;
+      background-color: #fff;
+      color: #333;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        outline: 3px solid #fff;
+        background-color: #333;
+        color: #fff;
+      }
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+.container-tasks {
+  width: 100%;
+  max-width: 450px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .task {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+
+    & .header-task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      & h3 {
+        display: inline-block;
+        font-size: 1.15rem;
+      }
+
+      & span {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        padding: 0.2rem 0.4rem;
+        border-radius: 15px;
+      }
+
+      & .priority {
+        background-color: #f00;
+      }
+    }
+
+    & .task-description {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #ddd;
+      width: 75%;
+      text-align: left;
+      text-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    & .task-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+
+      & button {
+        all: unset;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.7rem;
+        background-color: transparent;
+        color: #fff;
+
+        border-radius: 6px;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: all 0.15s ease;
+      }
+
+      & .task-edit {
+        margin-right: 0.6rem;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      & .task-delete {
+        color: #f00;
+        &:hover {
+          background-color: #f00;
+          color: #fff;
+        }
+    }
+  }
+}
