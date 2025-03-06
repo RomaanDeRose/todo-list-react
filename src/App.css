@@ -144,6 +144,35 @@
   flex-direction: column;
   align-items: center;
 
+  & .personal {
+    background-color: #f00;
+  }
+  & .trabajo {
+    background-color: #00f;
+  }
+  & .estudios {
+    background-color: #0f0;
+  }
+  & .deporte {
+    background-color: #ff0;
+  }
+  & .entretenimiento {
+    background-color: #f0f;
+  }
+  & .otra {
+    background-color: #0ff;
+  }
+
+  & .baja {
+    background-color: #10f;
+  }
+  & .media {
+    background-color: #fa0;
+  }
+  & .alta {
+    background-color: #f10;
+  }
+
   & .task {
     width: 100%;
     background-color: #333;
@@ -161,6 +190,7 @@
       & h3 {
         display: inline-block;
         font-size: 1.15rem;
+        text-transform: capitalize;
       }
 
       & span {
@@ -170,10 +200,6 @@
         border: 1px solid rgba(255, 255, 255, 0.5);
         padding: 0.2rem 0.4rem;
         border-radius: 15px;
-      }
-
-      & .priority {
-        background-color: #f00;
       }
     }
 
@@ -193,16 +219,15 @@
       align-items: center;
       margin-top: 1rem;
 
-      & button {
+      & .button {
         all: unset;
         font-size: 0.9rem;
         padding: 0.4rem 0.7rem;
         background-color: transparent;
         color: #fff;
-
+        border: 1px solid #ffffff50;
         border-radius: 6px;
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.4);
         transition: all 0.15s ease;
       }
 
@@ -219,6 +244,7 @@
           background-color: #f00;
           color: #fff;
         }
+      }
     }
   }
 }
