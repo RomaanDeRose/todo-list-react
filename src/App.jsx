@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Tasks from "./components/Tasks";
 
@@ -35,8 +35,9 @@ function App() {
       priority: priority,
       completed: false,
     };
-    console.log(newTask);
+
     setTasks([...tasks, newTask]);
+    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
 
     setTitle("");
     setDescription("");
@@ -51,6 +52,7 @@ function App() {
     const newTasks = tasks.filter((task) => task.id !== id);
 
     setTasks(newTasks);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
 
     toast("Tarea eliminada correctamente", {
       style: {
@@ -84,6 +86,7 @@ function App() {
       return task;
     });
     setTasks(newTasks);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
 
     toast.success("Tarea actualizada correctamente");
 
@@ -105,7 +108,13 @@ function App() {
     });
 
     setTasks(newTasks);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
   };
+
+  useEffect(() => {
+    const allTasks = JSON.parse(localStorage.getItem("tasks"));
+    allTasks ? setTasks(allTasks) : setTasks([]);
+  }, []);
 
   return (
     <div className="container">
