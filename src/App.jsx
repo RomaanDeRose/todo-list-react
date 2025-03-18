@@ -1,44 +1,48 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Tasks from "./components/Tasks";
 
 import "./App.css";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(true);
+  const [showEditForm, setShowEditForm] = useState(false);
+
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(false);
-  const taskTitle = useRef(null);
-  const taskDescription = useRef(null);
-  const taskEditTitle = useRef(null);
-  const taskEditDescription = useRef(null);
-  const taskCategory = useRef(null);
-  const taskPriority = useRef(null);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Personal");
+  const [priority, setPriority] = useState("Alta");
+
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      taskTitle.current.value.trim() === "" ||
-      taskDescription.current.value.trim() === ""
-    ) {
+    if (title.trim() === "" || description.trim() === "") {
       toast.error("Por favor, complete todos los campos");
       return;
     }
 
     const newTask = {
-      id: Math.round(Math.random() * 10000, 2),
-      title: taskTitle.current.value,
-      description: taskDescription.current.value,
-      category: taskCategory.current.value,
-      priority: taskPriority.current.value,
+      id: Math.round(Math.random() * 100000, 2),
+      title: title,
+      description: description,
+      category: category,
+      priority: priority,
       completed: false,
     };
+    console.log(newTask);
     setTasks([...tasks, newTask]);
-    taskTitle.current.value = "";
-    taskDescription.current.value = "";
-    taskCategory.current.value = "Personal";
-    taskPriority.current.value = "Alta";
+
+    setTitle("");
+    setDescription("");
+    setCategory("Personal");
+    setPriority("Alta");
+
     toast.success("Tarea agregada correctamente");
     setShowForm(!showForm);
   };
@@ -47,6 +51,7 @@ function App() {
     const newTasks = tasks.filter((task) => task.id !== id);
 
     setTasks(newTasks);
+
     toast("Tarea eliminada correctamente", {
       style: {
         backgroundColor: "#dd0000",
@@ -59,17 +64,22 @@ function App() {
     setShowEditForm(!showEditForm);
 
     const taskEdit = tasks.filter((task) => task.id === id);
-    setEditTask(taskEdit);
+    setEditTitle(taskEdit[0].title);
+    setEditDescription(taskEdit[0].description);
 
-    taskEditTitle.current.value = taskEdit.title;
-    taskEditDescription.current.value = taskEdit.description;
+    setEditTask(taskEdit);
   };
 
   const updateTask = (id) => {
+    if (editTitle.trim() === "" || editDescription.trim() === "") {
+      toast.error("Por favor, complete todos los campos");
+      return;
+    }
+
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
-        task.title = taskEditTitle.current.value;
-        task.description = taskEditDescription.current.value;
+        task.title = editTitle;
+        task.description = editDescription;
       }
       return task;
     });
@@ -78,6 +88,23 @@ function App() {
     toast.success("Tarea actualizada correctamente");
 
     setShowEditForm(!showEditForm);
+  };
+
+  const completeTask = (e, id) => {
+    if (e.target.checked) {
+      toast("Tarea completada correctamente", {
+        style: {
+          backgroundColor: "#00da02",
+          color: "#fff",
+        },
+      });
+    }
+    const newTasks = tasks.map((task) => {
+      task.id === id ? (task.completed = !task.completed) : null;
+      return task;
+    });
+
+    setTasks(newTasks);
   };
 
   return (
@@ -92,20 +119,22 @@ function App() {
                 Nuevo Título
               </label>
               <input
-                ref={taskEditTitle}
                 type="text"
                 placeholder="Escriba el nuevo título..."
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
               />
             </div>
             <div className="form-group">
               <label htmlFor="">Descripción</label>
               <textarea
-                ref={taskEditDescription}
                 name=""
                 id=""
                 cols="30"
                 rows="4"
                 placeholder="Escriba la descripción..."
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
               ></textarea>
             </div>
             <div className="buttons">
@@ -135,25 +164,32 @@ function App() {
                 Nueva Tarea
               </label>
               <input
-                ref={taskTitle}
                 type="text"
                 placeholder="Escriba su tarea..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="form-group">
               <label htmlFor="">Descripción</label>
               <textarea
-                ref={taskDescription}
                 name=""
                 id=""
                 cols="30"
                 rows="4"
                 placeholder="Escriba la descripción..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
             <div className="form-group">
               <label htmlFor="">Categoria</label>
-              <select ref={taskCategory} name="" id="">
+              <select
+                name=""
+                id=""
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 <option value="Personal">Personal</option>
                 <option value="Trabajo">Trabajo</option>
                 <option value="Estudios">Estudios</option>
@@ -164,7 +200,12 @@ function App() {
             </div>
             <div className="form-group">
               <label htmlFor="">Prioridad</label>
-              <select ref={taskPriority} name="" id="">
+              <select
+                name=""
+                id=""
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+              >
                 <option value="Alta">Alta</option>
                 <option value="Media">Media</option>
                 <option value="Baja">Baja</option>
@@ -178,45 +219,20 @@ function App() {
           </form>
         </div>
       )}
-      {tasks.length > 0 && (
+      {tasks.length > 0 ? (
         <div className="container-tasks">
-          {tasks.map((task) => (
-            <div key={task.id} className="task">
-              <div className="header-task">
-                <h3>{task.title}</h3>
-                <div className="task-info">
-                  <span className={`category ${task.category.toLowerCase()}`}>
-                    {task.category}
-                  </span>
-                  <span
-                    style={{ marginLeft: "0.35rem" }}
-                    className={`priority ${task.priority.toLowerCase()}`}
-                  >
-                    {task.priority}
-                  </span>
-                </div>
-              </div>
-              <p className="task-description">{task.description}</p>
-              <div className="task-actions">
-                <input type="checkbox" name="" id="" />
-                <div>
-                  <button
-                    className="button task-edit"
-                    onClick={() => taskEdit(task.id)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="button task-delete"
-                    onClick={() => deleteTask(task.id)}
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+          <p>
+            Cantidad de tareas: <span>{tasks.length}</span>
+          </p>
+          <Tasks
+            tasks={tasks}
+            taskEdit={taskEdit}
+            deleteTask={deleteTask}
+            completeTask={completeTask}
+          />
         </div>
+      ) : (
+        <p className="task-msg">No hay tareas registradas...</p>
       )}
     </div>
   );
