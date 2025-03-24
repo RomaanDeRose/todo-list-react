@@ -1,0 +1,159 @@
+.task {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  border: 1.5px solid #ffffff50;
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+  padding: 1.2rem;
+  transition: all 0.15s ease;
+  overflow: hidden;
+}
+.task.checked {
+  background-color: #777;
+}
+.task.no-checked {
+  background-color: #333;
+}
+
+.task .header-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.header-task h3 {
+  display: inline-block;
+  font-size: 1.15rem;
+  text-transform: capitalize;
+}
+
+.header-task .task-info span {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+  transition: background-color 0.15s ease;
+}
+.header-task .task-info span.personal {
+  border-color: #f65353;
+  &:hover {
+    background-color: #f6535325;
+  }
+}
+.header-task .task-info span.trabajo {
+  border-color: #596bf6;
+  &:hover {
+    background-color: #596bf625;
+  }
+}
+.header-task .task-info span.estudios {
+  border-color: #91ff7e;
+  &:hover {
+    background-color: #91ff7e25;
+  }
+}
+.header-task .task-info span.deporte {
+  border-color: #fab868;
+  &:hover {
+    background-color: #fab86825;
+  }
+}
+.header-task .task-info span.entretenimiento {
+  border-color: #fd6bc3;
+  &:hover {
+    background-color: #fd6bc325;
+  }
+}
+.header-task .task-info span.otra {
+  border-color: #ac7c5f;
+  &:hover {
+    background-color: #ac7c5f25;
+  }
+}
+.header-task .task-info span.alta {
+  background-color: #ff2828;
+}
+.header-task .task-info span.media {
+  background-color: #ff850b;
+}
+.header-task .task-info span.baja {
+  background-color: #cbb919;
+}
+
+.task .task-description {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #ccc;
+  width: 75%;
+  text-align: left;
+  word-break: normal;
+  white-space: normal;
+  margin-bottom: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.task .task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.task .task-actions input[type="checkbox"] {
+  appearance: none;
+  background-color: #ccc;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid #ffffff50;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  &:checked {
+    background-color: #777;
+    border: 1px solid #ffffff50;
+    &:after {
+      content: "";
+      display: block;
+      width: 0.7rem;
+      height: 0.7rem;
+      background-color: #333;
+      border-radius: 30%;
+      margin: 0.2rem;
+    }
+  }
+}
+
+.task .task-actions .button {
+  all: unset;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.7rem;
+  background-color: transparent;
+  border: 1px solid #ffffff50;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task .task-actions .button.task-edit {
+  color: #fff;
+  margin-right: 0.6rem;
+  &:hover {
+    color: #333;
+    background-color: #fff;
+  }
+}
+
+.task .task-actions .button.task-delete {
+  color: #ff2828;
+  &:hover {
+    background-color: #ff2828;
+    color: #fff;
+  }
+}

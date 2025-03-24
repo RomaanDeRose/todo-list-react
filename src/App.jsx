@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "./hooks/useForm";
 import toast, { Toaster } from "react-hot-toast";
-import Tasks from "./components/Tasks";
+import Tasks from "./components/Tasks/Tasks";
 
 import "./App.css";
 

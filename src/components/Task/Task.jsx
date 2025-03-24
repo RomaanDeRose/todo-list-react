@@ -1,3 +1,5 @@
+import "./Task.css";
+
 function Task({ task, taskEdit, deleteTask, completeTask }) {
   return (
     <div
@@ -24,10 +26,12 @@ function Task({ task, taskEdit, deleteTask, completeTask }) {
           type="checkbox"
           name=""
           id=""
-          onInput={(e) => completeTask(e, task.id)}
+          checked={task.completed}
+          onChange={(e) => completeTask(e, task.id)}
         />
-        <div style={{ visibility: task.completed ? "hidden" : null }}>
+        <div>
           <button
+            style={{ visibility: task.completed ? "hidden" : null }}
             className="button task-edit"
             onClick={() => taskEdit(task.id)}
           >
