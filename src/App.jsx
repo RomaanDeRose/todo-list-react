@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "./hooks/useForm";
 import toast, { Toaster } from "react-hot-toast";
 import Tasks from "./components/Tasks";
 
@@ -11,13 +12,19 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(false);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Personal");
-  const [priority, setPriority] = useState("Alta");
+  const [form, handleChange, resetForm] = useForm({
+    title: "",
+    description: "",
+    category: "Personal",
+    priority: "Alta",
+  });
+  const { title, description, category, priority } = form;
 
-  const [editTitle, setEditTitle] = useState("");
-  const [editDescription, setEditDescription] = useState("");
+  const [formEdit, handleChangeEdit, resetFormEdit, actualizeForm] = useForm({
+    editTitle: "",
+    editDescription: "",
+  });
+  const { editTitle, editDescription } = formEdit;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,13 +46,20 @@ function App() {
     setTasks([...tasks, newTask]);
     localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
 
-    setTitle("");
-    setDescription("");
-    setCategory("Personal");
-    setPriority("Alta");
+    resetForm();
 
     toast.success("Tarea agregada correctamente");
     setShowForm(!showForm);
+  };
+
+  const cancelTask = () => {
+    setShowForm(!showForm);
+    resetForm();
+  };
+
+  const cancelEditTask = () => {
+    setShowEditForm(!showEditForm);
+    resetFormEdit();
   };
 
   const deleteTask = (id) => {
@@ -66,8 +80,10 @@ function App() {
     setShowEditForm(!showEditForm);
 
     const taskEdit = tasks.filter((task) => task.id === id);
-    setEditTitle(taskEdit[0].title);
-    setEditDescription(taskEdit[0].description);
+    actualizeForm({
+      editTitle: taskEdit[0].title,
+      editDescription: taskEdit[0].description,
+    });
 
     setEditTask(taskEdit);
   };
@@ -128,28 +144,27 @@ function App() {
                 Nuevo Título
               </label>
               <input
+                name="editTitle"
                 type="text"
                 placeholder="Escriba el nuevo título..."
                 value={editTitle}
-                onChange={(e) => setEditTitle(e.target.value)}
+                onChange={handleChangeEdit}
               />
             </div>
             <div className="form-group">
               <label htmlFor="">Descripción</label>
               <textarea
-                name=""
+                name="editDescription"
                 id=""
                 cols="30"
                 rows="4"
                 placeholder="Escriba la descripción..."
                 value={editDescription}
-                onChange={(e) => setEditDescription(e.target.value)}
+                onChange={handleChangeEdit}
               ></textarea>
             </div>
             <div className="buttons">
-              <button onClick={() => setShowEditForm(!showEditForm)}>
-                Cancelar
-              </button>
+              <button onClick={cancelEditTask}>Cancelar</button>
               <button type="submit" onClick={() => updateTask(editTask[0].id)}>
                 Actualizar
               </button>
@@ -173,31 +188,32 @@ function App() {
                 Nueva Tarea
               </label>
               <input
+                name="title"
                 type="text"
                 placeholder="Escriba su tarea..."
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group">
               <label htmlFor="">Descripción</label>
               <textarea
-                name=""
+                name="description"
                 id=""
                 cols="30"
                 rows="4"
                 placeholder="Escriba la descripción..."
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={handleChange}
               ></textarea>
             </div>
             <div className="form-group">
               <label htmlFor="">Categoria</label>
               <select
-                name=""
+                name="category"
                 id=""
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={handleChange}
               >
                 <option value="Personal">Personal</option>
                 <option value="Trabajo">Trabajo</option>
@@ -210,10 +226,10 @@ function App() {
             <div className="form-group">
               <label htmlFor="">Prioridad</label>
               <select
-                name=""
+                name="priority"
                 id=""
                 value={priority}
-                onChange={(e) => setPriority(e.target.value)}
+                onChange={handleChange}
               >
                 <option value="Alta">Alta</option>
                 <option value="Media">Media</option>
@@ -222,7 +238,7 @@ function App() {
             </div>
 
             <div className="buttons">
-              <button onClick={() => setShowForm(!showForm)}>Cancelar</button>
+              <button onClick={cancelTask}>Cancelar</button>
               <button type="submit">Agregar</button>
             </div>
           </form>
