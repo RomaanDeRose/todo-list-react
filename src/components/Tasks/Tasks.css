@@ -1,24 +1,30 @@
-.container-tasks {
+.main-tasks {
   width: 100%;
-  max-width: 400px;
-  margin: 1.5rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
-.container-tasks p {
-  align-self: flex-start;
-  font-size: 1.2rem;
-  font-weight: 700;
+.main-tasks p {
+  font-size: 1.4rem;
+  font-weight: 600;
   color: #333;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
 }
-.container-tasks span {
-  font-size: 1.5rem;
-  background-color: #333;
+.main-tasks p span {
+  font-size: 1.75rem;
+  font-weight: 700;
   color: #fff;
-  padding: 0.1rem 0.8rem;
-  border-radius: 7px;
+  background-color: #333;
+  padding: 0.2rem 0.8rem;
+  border-radius: 8px;
+}
+
+.container-tasks {
+  width: 100%;
+  margin: 1.5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }

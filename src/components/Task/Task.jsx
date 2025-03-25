@@ -29,6 +29,7 @@ function Task({ task, taskEdit, deleteTask, completeTask }) {
           checked={task.completed}
           onChange={(e) => completeTask(e, task.id)}
         />
+        <div className="checked-task"></div>
         <div>
           <button
             style={{ visibility: task.completed ? "hidden" : null }}

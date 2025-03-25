@@ -113,7 +113,7 @@ function App() {
     if (e.target.checked) {
       toast("Tarea completada correctamente", {
         style: {
-          backgroundColor: "#00da02",
+          backgroundColor: "#48ff67",
           color: "#fff",
         },
       });
@@ -245,17 +245,12 @@ function App() {
         </div>
       )}
       {tasks.length > 0 ? (
-        <div className="container-tasks">
-          <p>
-            Cantidad de tareas: <span>{tasks.length}</span>
-          </p>
-          <Tasks
-            tasks={tasks}
-            taskEdit={taskEdit}
-            deleteTask={deleteTask}
-            completeTask={completeTask}
-          />
-        </div>
+        <Tasks
+          tasks={tasks}
+          taskEdit={taskEdit}
+          deleteTask={deleteTask}
+          completeTask={completeTask}
+        />
       ) : (
         <p className="task-msg">No hay tareas registradas...</p>
       )}
