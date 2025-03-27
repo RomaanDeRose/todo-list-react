@@ -12,19 +12,23 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(false);
 
-  const [form, handleChange, resetForm] = useForm({
-    title: "",
-    description: "",
-    category: "Personal",
-    priority: "Alta",
-  });
-  const { title, description, category, priority } = form;
+  const [{ title, description, category, priority }, handleChange, resetForm] =
+    useForm({
+      title: "",
+      description: "",
+      category: "Personal",
+      priority: "Alta",
+    });
 
-  const [formEdit, handleChangeEdit, resetFormEdit, actualizeForm] = useForm({
+  const [
+    { editTitle, editDescription },
+    handleChangeEdit,
+    resetFormEdit,
+    actualizeForm,
+  ] = useForm({
     editTitle: "",
     editDescription: "",
   });
-  const { editTitle, editDescription } = formEdit;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -131,6 +135,8 @@ function App() {
     const allTasks = JSON.parse(localStorage.getItem("tasks"));
     allTasks ? setTasks(allTasks) : setTasks([]);
   }, []);
+
+  console.log(tasks);
 
   return (
     <div className="container">
